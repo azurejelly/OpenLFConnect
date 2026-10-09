@@ -1,6 +1,29 @@
-#OpenLFConnect
+# OpenLFConnect
 
-**Update**
+This repo contains a very simple Docker image that allows OpenLFConnect to run on modern Linux distros without having to install Python 2.7 on the host or use a Debian 7 virtual machine. It is **not stable** and I have only used it to enable developer mode on a LeapPad Explorer.
+
+## Usage
+
+Assuming you already have Docker installed, find the device file that corresponds to your LeapFrog device. For example, in this case, it would be `/dev/sdc`:
+```sh
+$ lsblk -o PATH,MODEL
+PATH                                                  MODEL
+/dev/sda                                              ...
+/dev/sdb                                              ...
+/dev/sdc                                              LeapPad
+/dev/nvme0n1                                          ...
+```
+
+Then, run the container replacing `/dev/sdX` with the correct device file:
+```sh
+docker run -it --rm \
+    -v $(pwd)/files:/app/files \
+    --device="/dev/sdX:/dev/leapfrog" \
+    azurejelly/openlfconnect:latest
+```
+
+---
+**Old README**
 
 There seems to be a lot of issue with newer Linux distributions, its known to work on Debian 7, but there seems to have been some changes made, that break core functionality in other distros. 
 
