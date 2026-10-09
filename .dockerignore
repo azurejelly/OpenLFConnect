@@ -1,0 +1,10 @@
+.git/
+doc/
+bin/
+files/
+
+.gitignore
+.dockerignore
+
+Dockerfile
+readme.md
