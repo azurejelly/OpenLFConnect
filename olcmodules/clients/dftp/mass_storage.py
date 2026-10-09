@@ -87,15 +87,16 @@ class connection():
                 data_len = f.tell()
                 f.seek(0)
 
+            data_p_len = 0
             i = 0
-            while bytes_sent != data_len:
+
+            while bytes_sent < data_len:
                 if type == 'upload':
                     data_p = f.read(request_len)
                 else:
                     data_p = data[i:request_len+i]
 
                 data_p_len = len(data_p)
-
                 data_p += '\x00'*(request_len-data_p_len)
 
                 scsi_cmd = '%s %s -b -s %s -n 2A 80 00 00 00 %s 00 00 %s 00' % (self._sg_raw, self._conn_iface.device_id, request_len, lba, trans_len)
